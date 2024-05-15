@@ -7,7 +7,14 @@ module.exports = {
     ],
     theme: {
         extend: {
-            'bluezinho':'color:blue'
+            dropShadow: {
+                '5xl': [
+                '-5px 5px 5px rgba(0, 0, 0, 0.25)',
+                '5px 0px 5px rgba(0, 0, 0, 0.25)'
+                ]
+                
+                
+            }
         },
     },
     darkMode: "class",
