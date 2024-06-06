@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from "./components/Login"
 import ErrorPage from "./components/ErrorPage"
 import RegistrationForm from "./components/RegistrationForm"
-import LandingPage from "./components/LandingPage"
+
 
 
 
