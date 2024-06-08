@@ -39,7 +39,7 @@ const Login = () => {
           </form>
           <div className="mt-3 flex justify-center">
             <h1 className="font-bold">Não tem uma conta? </h1>
-            <a href="#" className="text-[#7B66FD] ml-2">Inscreva-se</a>
+            <a href="/registro" className="text-[#7B66FD] ml-2">Inscreva-se</a>
           </div>
         </div>
       </div>
