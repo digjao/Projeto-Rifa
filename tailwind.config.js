@@ -12,8 +12,6 @@ module.exports = {
                 '-5px 5px 5px rgba(0, 0, 0, 0.25)',
                 '5px 0px 5px rgba(0, 0, 0, 0.25)'
                 ]
-                
-                
             }
         },
     },
