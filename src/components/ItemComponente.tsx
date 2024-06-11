@@ -1,22 +1,8 @@
 import React from 'react';
+import { rifasInfo } from '../Interfaces/rifasInfo';
 
-interface rifasInfo {
-  rifa_id: number;
-  nome: string;
-  descricao: string;
-  status: string;
-  preco_bilhete: number;
-  quant_bilhetes: number;
-  quant_comprados: number;
-  quant_restantes: number;
-  image_url: string;
-}
 
-interface RifasInfoProps {
-  rifas: rifasInfo;
-}
-
-const ItemComponente: React.FC<RifasInfoProps> = ({ rifas }) => {
+const ItemComponente: React.FC< { rifas:rifasInfo } > = ({ rifas }) => {
   return (
     <div className="bg-[#EFEFEF] rounded-lg border drop-shadow-5xl w-[400px] min-h-[600px] flex flex-col justify-between items-center mr-20">
       <div className="bg-[#EFEFEF] rounded-lg border-2 border-black mt-4 w-[350px] min-h-[250px]">
@@ -45,5 +31,6 @@ const ItemComponente: React.FC<RifasInfoProps> = ({ rifas }) => {
     </div>
   );
 };
+
 
 export default ItemComponente;
