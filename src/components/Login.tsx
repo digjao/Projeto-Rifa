@@ -1,3 +1,6 @@
+import FacebookComponente from "./FacebookComponente"
+import GoogleComponente from "./GoogleComponente"
+
 
 
 const Login = () => {
@@ -25,12 +28,12 @@ const Login = () => {
                 <a href="#" className="font-bold">Esqueceu a senha?</a>
               </div>
             </div>
-            <div>
-                <div>
-                  <h1 className="mb-4">Logar com Google</h1>
+            <div >
+                <div className="mb-4">
+                  <GoogleComponente />
                 </div>
                 <div>
-                  <h1>Logar com Facebook</h1>
+                  <FacebookComponente />
                 </div>
             </div>
             <div className="flex justify-center mt-5">
