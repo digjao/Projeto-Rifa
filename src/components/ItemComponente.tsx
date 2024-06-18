@@ -4,7 +4,7 @@ import { rifasInfo } from '../Interfaces/rifasInfo';
 
 const ItemComponente: React.FC< { rifas:rifasInfo } > = ({ rifas }) => {
   return (
-    <div className="bg-[#EFEFEF] rounded-lg border drop-shadow-5xl w-[400px] min-h-[600px] flex flex-col justify-between items-center mr-20">
+    <div className="bg-[#EFEFEF] rounded-lg border drop-shadow-5xl p-2 flex flex-col justify-between items-center">
       <div className="bg-[#EFEFEF] rounded-lg border-2 border-black mt-4 w-[350px] min-h-[250px]">
         <img src={rifas.image_url} alt={rifas.nome} />
       </div>

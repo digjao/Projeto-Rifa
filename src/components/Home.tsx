@@ -40,22 +40,20 @@ const rifas:rifasInfo[] = [
   },
 ];
 
-export default function LandingPage() {
+export default function Home() {
   return (
     <div>
       <NavBar />
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex">
-          <div className="w-[1600px] flex justify-end mt-5 mg">
+      <div className="p-4">
+        <div className="flex justify-end p-2 mg">
             <button className="border-2 border-black rounded-sg text-4xl p-2 rounded-[50px] mb-5">Ordenar por</button>
-          </div>
         </div>
-        <div className="flex items-center justify-evenly bg-[#D9D9D9] rounded-lg p-5 border-2 border-black w-[1600px] min-h-[800px]">
-          <div className="flex flex-wrap">
+        <div className="flex flex-wrap items-center justify-evenly bg-[#D9D9D9] rounded-lg border-2 border-black p-20">
+          
               {rifas.map((rifa) => (
                 <ItemComponente key={rifa.rifa_id} rifas={rifa} />
                  ))}
-          </div>
+          
         </div>
       </div>
     </div>
