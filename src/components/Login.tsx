@@ -1,9 +1,26 @@
+import { apiClient } from '../services/config';
+import { useSearchParams } from 'react-router-dom';
 import FacebookComponente from "./FacebookComponente"
 import GoogleComponente from "./GoogleComponente"
+import { useEffect } from 'react';
+
 
 
 
 const Login = () => {
+
+  
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token')
+
+  useEffect(() => {
+    if (token) {
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    }
+  }, [token])
+
+
+  
   return (
     <div className="">
       <header className="h-14 bg-[#B5B5B5] border-b-2 border-black flex items-center pl-4">
