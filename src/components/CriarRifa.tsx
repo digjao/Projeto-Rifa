@@ -2,8 +2,7 @@ import NavBar from "./NavBar"
 
 export const CriarRifa = () => {
     return (
-        
-        <div>
+        <div className="flex flex-col min-h-screen">
             <NavBar />
             <h1 className="text-4xl p-4">Minha conta | Crie agora sua rifa</h1>
             <div className="flex">
@@ -26,9 +25,7 @@ export const CriarRifa = () => {
                                 <h1 className="text-2xl p-2">Valor do bilhete</h1>
                                 <input type="text" className="border-2 border-black p-2 rounded-3xl" />
                             </div>
-
                         </div>
-
                     </form>
                 </div>
                 <div className="p-2 grow-0">
@@ -37,11 +34,14 @@ export const CriarRifa = () => {
                         <input type="file" className="border-2 border-black p-2 rounded-3xl h-80" />
                     </div>
                 </div>
-                <div className="fixed bottom-0 left-0 w-full bg-white p-4">
-                    <h1 className="text-xl font-bold">Faça um upload da foto para confirmar o seu objetivo da rifa, isso transmite mais veracidade e consegue adquirir mais recursos para sua rifa.</h1>
-                    <h1 className="text-xl font-bold">Imagens com tamanho mínimo de 377x312</h1>
-                    <h1 className="text-xl font-bold">Imagens do tipo: jpg, jpeg ou png</h1>
-                </div>
+            </div>
+            <div className="">
+                <h1>Faça um upload da foto para confirmar o seu objetivo da rifa, isso transmite mais veracidade e consegue adquirir mais recursos para sua rifa.</h1>
+                <h1>Imagens com tamanho mínimo de 377x312</h1>
+                <h1>Imagens do tipo: jpg, jpeg ou png</h1>
+            </div>
+            <div className="flex items-center justify-center">
+            <button type="submit" className="w-64 mr-20 border-2 bg-[#7B66FD] text-white rounded-md py-1 text-xl border-black">Criar Rifa</button>
             </div>
         </div>
     )
