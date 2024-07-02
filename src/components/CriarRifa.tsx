@@ -13,22 +13,27 @@ export const CriarRifa = () => {
                         <label htmlFor="objetivoRifa" className="text-3xl p-2">Informe o objetivo da sua rifa</label>
                         <textarea id="objetivoRifa" className="border-2 border-black p-2 rounded-3xl h-32 mb-4" />
                         <div className="flex flex-wrap justify-between">
-                            <div className="w-full md:w-1/3 p-2">
+                            <div className="w-full md:w-1/4 p-2">
                                 <label htmlFor="premioRifa" className="text-2xl p-2">Prêmio</label>
                                 <input type="text" id="premioRifa" className="border-2 border-black p-2 rounded-3xl w-full" placeholder="Ex: Tv 50'"/>
                             </div>
-                            <div className="w-full md:w-1/3 p-2">
+                            <div className="w-full md:w-1/4 p-2">
                                 <label htmlFor="dataSorteio" className="text-2xl p-2">Data do sorteio</label>
                                 <input type="date" id="dataSorteio" className="border-2 border-black p-2 rounded-3xl w-full" placeholder="Ex: 99/99/9999"/>
                             </div>
-                            <div className="w-full md:w-1/3 p-2">
+                            <div className="w-full md:w-1/4 p-2">
                                 <label htmlFor="valorBilhete" className="text-2xl p-2">Valor do bilhete</label>
                                 <input type="number" step={0.01} id="valorBilhete" className="border-2 border-black p-2 rounded-3xl w-full" placeholder="Ex: R$0,00"/>
+                            </div>
+                            <div className="w-full md:w-1/4 p-2">
+                                <label htmlFor="quantBilhete" className="text-2xl p-2">Quantidade de bilhetes</label>
+                                <input type="number" id="quantBilhete" className="border-2 border-black p-2 rounded-3xl" placeholder="Ex: 60" min={0} />
+
                             </div>
                         </div>
                     </form>
                 </div>
-                <div className="p-2 grow-0 w-full md:w-1/2">
+                <div className="p-2 grow-0 w-full md:w-1/3">
                     <div className="flex flex-col">
                         <label htmlFor="fotosPremio" className="text-3xl p-2">Fotos do Prêmio</label>
                         <input type="file" id="fotosPremio" className="border-2 border-black p-2 rounded-3xl h-80" />
