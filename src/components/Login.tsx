@@ -1,5 +1,5 @@
 import { apiClient } from '../services/config';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import FacebookComponente from "./FacebookComponente"
 import GoogleComponente from "./GoogleComponente"
 import { useEffect } from 'react';
@@ -9,13 +9,14 @@ import { useEffect } from 'react';
 const Login = () => {
 
 
-  
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token')
 
   useEffect(() => {
     if (token) {
-      apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      navigate('/home')
     }
   }, [token])
 

@@ -4,6 +4,7 @@ import { rifasInfo } from "../Interfaces/rifasInfo";
 
 
 
+
 const rifas:rifasInfo[] = [
   {
     rifa_id: 1,
@@ -39,6 +40,9 @@ const rifas:rifasInfo[] = [
     image_url: 'url_da_imagem_3',
   },
 ];
+
+
+
 
 export default function Home() {
   return (
