@@ -3,7 +3,7 @@ import Login from "./components/Login"
 import ErrorPage from "./components/ErrorPage"
 import RegistrationForm from "./components/RegistrationForm"
 import Home from "./components/Home"
-import { CriarRifa } from "./components/CriarRifa"
+import { CriarRifa } from "./components/CriacaoRifa"
 
 
 

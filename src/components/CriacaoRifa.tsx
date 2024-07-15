@@ -1,7 +1,14 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
 import { rifaCreate } from "../Interfaces/rifaCreate";
-import { rifaFormulario } from "../services/auth";
+import axios from "axios";
+import { createRifa } from "../services/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
 
 export const CriarRifa = () => {
   const [formData, setFormData] = useState<rifaCreate>({
@@ -9,11 +16,10 @@ export const CriarRifa = () => {
     descricao: '',
     preco_bilhete: 0,
     premio_nome: '',
-    premio_imagem: '',
+    premio_imagem: new File([], "empty.txt"),
     data_sorteio: '',
     quant_bilhetes: 0,
   });
-  const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState({
     nome: '',
     descricao: '',
@@ -39,9 +45,17 @@ export const CriarRifa = () => {
         setErrors(prev => ({ ...prev, premio_imagem: 'A imagem deve ser do tipo jpg, jpeg ou png.' }));
         return;
       }
-      setFile(selectedFile);
+      setFormData({ ...formData, premio_imagem: selectedFile });
       setErrors(prev => ({ ...prev, premio_imagem: '' }));
     }
+  };
+
+  const isDateInThePast = (data: string) => {
+    const inputDate = new Date(data);
+    const currentDate = new Date();
+    inputDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+    return inputDate < currentDate;
   };
 
   const validate = () => {
@@ -66,8 +80,8 @@ export const CriarRifa = () => {
       valid = false;
     }
 
-    if (formData.preco_bilhete <= 0) {
-      newErrors.preco_bilhete = 'O preço do bilhete deve ser maior que zero.';
+    if (formData.preco_bilhete <= 0 || formData.preco_bilhete > 100) {
+      newErrors.preco_bilhete = 'O preço do bilhete deve ser entre 0 e R$100.';
       valid = false;
     }
 
@@ -81,8 +95,18 @@ export const CriarRifa = () => {
       valid = false;
     }
 
-    if (formData.quant_bilhetes < 10) {
-      newErrors.quant_bilhetes = 'A quantidade de bilhetes deve ser pelo menos 10.';
+    if (isDateInThePast(formData.data_sorteio)) {
+      newErrors.data_sorteio = 'A data do sorteio não pode estar no passado.';
+      valid = false;
+    }
+
+    if (formData.quant_bilhetes < 10 || formData.quant_bilhetes > 80) {
+      newErrors.quant_bilhetes = 'A quantidade de bilhetes deve ser entre 10 e 80.';
+      valid = false;
+    }
+
+    if (formData.premio_imagem.size === 0) {
+      newErrors.premio_imagem = 'Arquivo é obrigatório.';
       valid = false;
     }
 
@@ -101,17 +125,23 @@ export const CriarRifa = () => {
     data.append('descricao', formData.descricao);
     data.append('preco_bilhete', formData.preco_bilhete.toString());
     data.append('premio_nome', formData.premio_nome);
-    if (file) {
-      data.append('premio_imagem', file);
-    }
+    data.append('premio_imagem', formData.premio_imagem);
     data.append('data_sorteio', formData.data_sorteio);
     data.append('quant_bilhetes', formData.quant_bilhetes.toString());
 
-    const response = await rifaFormulario(data);
-    if (response) {
-      alert('Rifa criada com sucesso!');
-    } else {
-      alert('Erro ao criar rifa.');
+    try {
+      await createRifa(data);
+      toast.success('Rifa criada com sucesso!');
+    } catch (error: any) {
+      console.log(error);
+
+      if (typeof error === 'string') {
+        toast.error(`Erro: ${error}`);
+      } else if (axios.isAxiosError(error)) {
+        toast.error(`Erro: ${error.response?.data?.detail?.[0]?.msg}`);
+      } else {
+        toast.error('Erro desconhecido ao criar rifa.');
+      }
     }
   };
 
@@ -165,7 +195,6 @@ export const CriarRifa = () => {
                   type="date"
                   id="dataSorteio"
                   className={`border-2 p-2 rounded-3xl w-full ${errors.data_sorteio ? 'border-red-500' : 'border-black'}`}
-                  placeholder="Ex: 99/99/9999"
                   value={formData.data_sorteio}
                   onChange={handleChange}
                 />
@@ -196,7 +225,6 @@ export const CriarRifa = () => {
                   id="quantBilhete"
                   className={`border-2 p-2 rounded-3xl w-full ${errors.quant_bilhetes ? 'border-red-500' : 'border-black'}`}
                   placeholder="Ex: 60"
-                  min={10}
                   value={formData.quant_bilhetes}
                   onChange={handleChange}
                 />
@@ -230,6 +258,7 @@ export const CriarRifa = () => {
           Criar Rifa
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
