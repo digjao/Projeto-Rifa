@@ -1,6 +1,6 @@
-import ItemComponente from "./ItemComponente"
-import NavBar from "./NavBar";
-import { rifasInfo } from "../Interfaces/rifasInfo";
+import ItemComponente from "../components/ItemComponente"
+import NavBar from "../components/NavBar";
+import { rifasInfo } from "../Interfaces/RifasInfo";
 
 
 

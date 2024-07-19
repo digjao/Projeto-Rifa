@@ -1,5 +1,5 @@
 import React from 'react';
-import { rifasInfo } from '../Interfaces/rifasInfo';
+import { rifasInfo } from '../Interfaces/RifasInfo';
 
 
 const ItemComponente: React.FC< { rifas:rifasInfo } > = ({ rifas }) => {

@@ -1,4 +1,4 @@
-export interface rifaCreate {
+export interface RifaCreate {
     nome: string,
     descricao:string,
     preco_bilhete:number,

@@ -1,17 +1,15 @@
 import { useState } from "react";
-import NavBar from "./NavBar";
-import { rifaCreate } from "../Interfaces/rifaCreate";
+import NavBar from "../components/NavBar";
+import { RifaCreate } from "../Interfaces/RifaCreate";
 import axios from "axios";
 import { createRifa } from "../services/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Input from "../components/Inputs";
+import { RifaFormErrors } from "../Interfaces/RifaFormErrors";
 
-
-
-
-
-export const CriarRifa = () => {
-  const [formData, setFormData] = useState<rifaCreate>({
+export const CriacaoRifa = () => {
+  const [formData, setFormData] = useState<RifaCreate>({
     nome: '',
     descricao: '',
     preco_bilhete: 0,
@@ -20,7 +18,8 @@ export const CriarRifa = () => {
     data_sorteio: '',
     quant_bilhetes: 0,
   });
-  const [errors, setErrors] = useState({
+
+  const [errors, setErrors] = useState<RifaFormErrors>({
     nome: '',
     descricao: '',
     preco_bilhete: '',
@@ -30,11 +29,13 @@ export const CriarRifa = () => {
     premio_imagem: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    const parsedValue = type === 'number' ? parseFloat(value) : value;
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: parsedValue,
     });
   };
 
@@ -131,9 +132,11 @@ export const CriarRifa = () => {
 
     try {
       await createRifa(data);
-      toast.success('Rifa criada com sucesso!');
+      toast.success('Rifa criada com sucesso!')
+      console.log(formData);
+      ;
     } catch (error: any) {
-      console.log(error);
+      console.log(formData);
 
       if (typeof error === 'string') {
         toast.error(`Erro: ${error}`);
@@ -152,97 +155,92 @@ export const CriarRifa = () => {
       <div className="flex flex-wrap p-8">
         <div className="p-2 grow w-full md:w-1/2">
           <form id="enter" onSubmit={handleSubmit} className="flex flex-col">
-            <label htmlFor="tituloRifa" className="text-3xl p-2">Título da Rifa</label>
-            <input
+            <Input  
               name="nome"
               type="text"
               id="tituloRifa"
-              className={`border-2 p-2 rounded-3xl mb-4 ${errors.nome ? 'border-red-500' : 'border-black'}`}
+              label="Titulo da rifa"
               placeholder="Ex: Rifa para ajudar..."
+              className={`border-2 p-2 rounded-3xl mb-4 ${errors.nome ? 'border-red-500' : 'border-black'}`}
               value={formData.nome}
               onChange={handleChange}
+              errorMessage={errors.nome}
             />
-            {errors.nome && <p className="text-red-500">{errors.nome}</p>}
-
-            <label htmlFor="objetivoRifa" className="text-3xl p-2">Informe o objetivo da sua rifa</label>
-            <textarea
+            <Input  
               name="descricao"
+              type="text"
               id="objetivoRifa"
+              label="Informe o objetivo da sua rifa"
+              placeholder=""
               className={`border-2 p-2 rounded-3xl h-32 mb-4 ${errors.descricao ? 'border-red-500' : 'border-black'}`}
               value={formData.descricao}
               onChange={handleChange}
+              errorMessage={errors.descricao}
             />
-            {errors.descricao && <p className="text-red-500">{errors.descricao}</p>}
 
             <div className="flex flex-wrap justify-between">
               <div className="w-full md:w-1/4 p-2">
-                <label htmlFor="premioRifa" className="text-2xl p-2">Prêmio</label>
-                <input
+                <Input  
                   name="premio_nome"
                   type="text"
                   id="premioRifa"
-                  className={`border-2 p-2 rounded-3xl w-full ${errors.premio_nome ? 'border-red-500' : 'border-black'}`}
+                  label="Prêmio"
                   placeholder="Ex: Tv 50'"
+                  className={`border-2 p-2 rounded-3xl w-full ${errors.premio_nome ? 'border-red-500' : 'border-black'}`}
                   value={formData.premio_nome}
                   onChange={handleChange}
+                  errorMessage={errors.premio_nome}
                 />
-                {errors.premio_nome && <p className="text-red-500">{errors.premio_nome}</p>}
               </div>
               <div className="w-full md:w-1/4 p-2">
-                <label htmlFor="dataSorteio" className="text-2xl p-2">Data do sorteio</label>
-                <input
+                <Input  
                   name="data_sorteio"
                   type="date"
                   id="dataSorteio"
+                  label="Data do sorteio"
                   className={`border-2 p-2 rounded-3xl w-full ${errors.data_sorteio ? 'border-red-500' : 'border-black'}`}
                   value={formData.data_sorteio}
                   onChange={handleChange}
-                />
-                {errors.data_sorteio && <p className="text-red-500">{errors.data_sorteio}</p>}
+                  errorMessage={errors.data_sorteio}
+                /> 
               </div>
               <div className="w-full md:w-1/4 p-2">
-                <label htmlFor="valorBilhete" className="text-2xl p-2">Valor do bilhete</label>
-                <div className={`flex items-center border-2 p-2 rounded-3xl w-full ${errors.preco_bilhete ? 'border-red-500' : 'border-black'}`}>
-                  <span className="mr-2">R$</span>
-                  <input
-                    name="preco_bilhete"
-                    type="number"
-                    step={0.01}
-                    id="valorBilhete"
-                    className="flex w-full focus:ring-0 border-none outline-none"
-                    placeholder="0,00"
-                    value={formData.preco_bilhete}
-                    onChange={handleChange}
-                  />
-                </div>
-                {errors.preco_bilhete && <p className="text-red-500">{errors.preco_bilhete}</p>}
+                <Input  
+                  name="preco_bilhete"
+                  type="number"
+                  id="valorBilhete"
+                  label="Valor do bilhete"
+                  className={`flex items-center border-2 p-2 rounded-3xl w-full ${errors.preco_bilhete ? 'border-red-500' : 'border-black'}`}
+                  value={formData.preco_bilhete}
+                  onChange={handleChange}
+                  errorMessage={errors.preco_bilhete}
+                /> 
               </div>
               <div className="w-full md:w-1/4 p-2">
-                <label htmlFor="quantBilhete" className="text-2xl p-2">Total de bilhetes</label>
-                <input
+                <Input  
                   name="quant_bilhetes"
                   type="number"
                   id="quantBilhete"
+                  label="Total de bilhetes"
                   className={`border-2 p-2 rounded-3xl w-full ${errors.quant_bilhetes ? 'border-red-500' : 'border-black'}`}
-                  placeholder="Ex: 60"
                   value={formData.quant_bilhetes}
                   onChange={handleChange}
-                />
-                {errors.quant_bilhetes && <p className="text-red-500">{errors.quant_bilhetes}</p>}
+                  errorMessage={errors.quant_bilhetes}
+                /> 
               </div>
             </div>
           </form>
         </div>
         <div className="p-2 grow-0 w-full md:w-1/3">
           <div className="flex flex-col">
-            <label htmlFor="fotosPremio" className="text-3xl p-2">Fotos do Prêmio</label>
-            <input
+            <Input 
+              label="Fotos do Prêmio"
               type="file"
               id="fotosPremio"
               className={`border-2 p-2 rounded-3xl h-80 ${errors.premio_imagem ? 'border-red-500' : 'border-black'}`}
               onChange={handleFileChange}
+              errorMessage={errors.premio_imagem}
             />
-            {errors.premio_imagem && <p className="text-red-500">{errors.premio_imagem}</p>}
           </div>
         </div>
       </div>
