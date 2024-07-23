@@ -1,6 +1,7 @@
-import ItemComponente from "./ItemComponente"
-import NavBar from "./NavBar";
-import { rifasInfo } from "../Interfaces/rifasInfo";
+import ItemComponente from "../components/ItemComponente"
+import NavBar from "../components/NavBar";
+import { rifasInfo } from "../Interfaces/RifasInfo";
+
 
 
 
@@ -39,6 +40,9 @@ const rifas:rifasInfo[] = [
     image_url: 'url_da_imagem_3',
   },
 ];
+
+
+
 
 export default function Home() {
   return (
